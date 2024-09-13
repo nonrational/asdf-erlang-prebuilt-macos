@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 download_erlef_builds() {
-  local releases_url='https://github.com/erlef/otp_builds/raw/builds/macos-arm64.txt'
+  local releases_url='https://raw.githubusercontent.com/erlef/otp_builds/wm-initial/builds/macos-arm64.txt'
 
   if ! curl -fs $releases_url; then
     cat >&2 <<EOS
