@@ -1,6 +1,6 @@
 # asdf-erlang-prebuilt-macos
 
-Erlang plugin for [asdf](https://github.com/asdf-vm/asdf) version manager, using Erlang builds by [hexpm/bob](https://github.com/hexpm/bob), for Apple silicon MacOS devices
+Erlang plugin for [asdf](https://github.com/asdf-vm/asdf) version manager, using Erlang builds by [erlef/otp_builds](https://github.com/erlef/otp_builds/), for Apple silicon MacOS devices
 
 ## Install
 

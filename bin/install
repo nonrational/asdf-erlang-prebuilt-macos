@@ -52,7 +52,7 @@ download_tar_gz_file_for_version() {
     cat <<EOS
 ==> erlang version not found.
 
-Hex.pm returned a ${http_status} for the following URL:
+github returned a ${http_status} for the following URL:
 
 ${download_url}
 
@@ -79,7 +79,7 @@ get_download_url_for_version() {
     version="OTP-${version}"
   fi
 
-  echo "https://builds.hex.pm/builds/otp/arm64/macos/${version}.tar.gz"
+  echo "https://github.com/erlef/otp_builds/releases/download/${version}/${version}-macos-arm64.tar.gz"
 }
 
 

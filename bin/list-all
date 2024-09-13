@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-download_hex_pm_builds() {
-  local releases_url='https://builds.hex.pm/builds/otp/arm64/macos/builds.txt'
+download_erlef_builds() {
+  local releases_url='https://github.com/erlef/otp_builds/raw/builds/macos-arm64.txt'
 
   if ! curl -fs $releases_url; then
     cat >&2 <<EOS
-==> Failed to fetch Hex.pm versions list.
+==> Failed to fetch erlef/otp_builds versions list.
 
-Hex.pm returned an error for the following URL:
+Github returned an error for the following URL:
 
 ${releases_url}
 EOS
@@ -17,9 +17,9 @@ EOS
 }
 
 
-get_hex_pm_versions() {
-  # Get the builds file from Hex.pm
-  download_hex_pm_builds |
+get_erlef_versions() {
+  # Get the builds file from erlef/otp_builds
+  download_erlef_builds |
     # Filter only the first field (the version name)
     cut -d\  -f1 |
     # Normalize version names
@@ -73,4 +73,4 @@ sort_versions() {
 
 
 # Output the list of versions in a single line
-echo `get_hex_pm_versions | sort_versions`
+echo `get_erlef_versions | sort_versions`
