@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 download_erlef_builds() {
-  local releases_url='https://github.com/erlef/otp_builds/raw/builds/aarch64-apple-darwin.csv'
+  local releases_url='https://raw.githubusercontent.com/erlef/otp_builds/refs/heads/main/builds/aarch64-apple-darwin.csv'
 
   if ! curl -fs $releases_url; then
     cat >&2 <<EOS
