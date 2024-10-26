@@ -78,7 +78,7 @@ get_download_url_for_version() {
     version="OTP-${version}"
   fi
 
-  echo "https://github.com/erlef/otp_builds/releases/download/${version}/${version}-macos-arm64.tar.gz"
+  echo "https://github.com/erlef/otp_builds/releases/download/${version}/otp-aarch64-apple-darwin.tar.gz"
 }
 
 
