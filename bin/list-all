@@ -20,6 +20,8 @@ EOS
 get_erlef_versions() {
   # Get the builds file from erlef/otp_builds
   download_erlef_builds |
+    # Drop CSV headers line
+    sed 1d |
     # Filter only the first field (the version name)
     cut -d "," -f 1 |
     # Normalize version names
