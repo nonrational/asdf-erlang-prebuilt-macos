@@ -73,12 +73,21 @@ EOS
 get_download_url_for_version() {
   local version=$1
 
-  # if version is a release number, prepend OTP-
-  if [[ "$version" =~ ^[0-9]+\.* ]]; then
-    version="OTP-${version}"
-  fi
+  case "${version}" in
+    master|maint*)
+      ref="${version}-latest"
+      ;;
+    *)
+      ref="OTP-${otp_version}"
+      ;;
+  esac
 
-  echo "https://github.com/erlef/otp_builds/releases/download/${version}/otp-aarch64-apple-darwin.tar.gz"
+  case $(uname -m) in
+    "x86_64") arch=x86_64 ;;
+    "arm64")  arch=aarch64 ;;
+  esac
+
+  echo "https://github.com/erlef/otp_builds/releases/download/${ref}/otp-${arch}-apple-darwin.tar.gz"
 }
 
 
