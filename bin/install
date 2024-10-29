@@ -78,7 +78,7 @@ get_download_url_for_version() {
       ref="${version}-latest"
       ;;
     *)
-      ref="OTP-${otp_version}"
+      ref="OTP-${version}"
       ;;
   esac
 
