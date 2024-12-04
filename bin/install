@@ -32,9 +32,38 @@ install_erlang_version() {
   local download_path="$tmp_download_dir/OTP-${version}.tar.gz"
   download_tar_gz_file_for_version $version $download_path
 
+  echo "==> Verifying release..."
+
+  local arch=$(get_arch)
+  local target="${arch}-apple-darwin"
+  local checksum_line=$(curl -fsSL https://github.com/erlef/otp_builds/raw/main/builds/$target.csv | grep OTP-$version,)
+  local checksum=$(echo $checksum_line | cut -d"," -f4)
+
+  if [ -z $checksum ]; then
+    echo "==> Release checksum not found!"
+    exit 1
+  fi
+
+  sha256 $download_path --check $checksum > /dev/null
+
+  if [ $? -ne 0 ]; then
+    echo "==> Release verification failed!"
+    exit 1
+  fi
+
   echo "==> Copying release into place"
 
   tar zxf $download_path -C $install_path --strip-components=1 || exit 1
+}
+
+
+get_arch() {
+  case $(uname -m) in
+    "x86_64") arch=x86_64 ;;
+    "arm64")  arch=aarch64 ;;
+  esac
+
+  echo "${arch}"
 }
 
 
@@ -72,6 +101,7 @@ EOS
 
 get_download_url_for_version() {
   local version=$1
+  local arch=$(get_arch)
 
   case "${version}" in
     master|maint*)
@@ -80,11 +110,6 @@ get_download_url_for_version() {
     *)
       ref="OTP-${version}"
       ;;
-  esac
-
-  case $(uname -m) in
-    "x86_64") arch=x86_64 ;;
-    "arm64")  arch=aarch64 ;;
   esac
 
   echo "https://github.com/erlef/otp_builds/releases/download/${ref}/otp-${arch}-apple-darwin.tar.gz"
